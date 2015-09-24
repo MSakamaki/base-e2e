@@ -1,0 +1,53 @@
+<a href="#top"></a>
+<article>
+  <h3>全体の集計結果</h3>
+    <span>成功率：{{ func.reports.successSpecNum() }} / {{ func.reports.specNum() }}</span>
+    <md-progress-linear style="width:100%;" md-mode="determinate"
+        ng-class="func.reports.successRate() <= 70 ? 'md-accent' : 'md-primary'"
+        value="{{ func.reports.successRate() }}"></md-progress-linear>
+</article>
+<article>
+  <h3>TODO: フィルター</h3>
+  <md-input-container>
+    <label>Filter</label>
+    <input ng-model="func.filterWords">
+  </md-input-container>
+</article>
+<md-divider></md-divider>
+<h3>結果詳細</h3>
+<article ng-repeat="(suiteName ,suites) in func.reports.body">
+  <md-divider ng-if="!$first"></md-divider>
+  <section>
+    <article>
+      <md-toolbar class="md-toolbar-tools">
+        <h2>
+          <span><span id="{{suiteName}}"></span>{{ suiteName }}</span>
+        </h2>
+      </md-toolbar>
+      <section ng-if="$first">
+        <span>成功率：{{ suites.sucess() }} / {{ suites.specs.length }}</span>
+        <md-progress-linear style="width:100%;" md-mode="determinate"
+            ng-class="suites.successRate() <= 70 ? 'md-accent' : 'md-primary'"
+            value="{{ suites.successRate() }}"></md-progress-linear>
+      </section>
+      <md-list ng-repeat="spec in suites.specs">
+        <h4><span id="{{spec.fullName}}"></span>{{ spec.fullName }}</h4>
+        <md-list-item ng-class="{ 'md-2-line': spec.status === 'failed' }">
+          <i class="material-icons md-avatar" ng-if="spec.status === 'passed'" style="color: green;">check_circle</i>
+          <i class="material-icons md-avatar" ng-if="spec.status === 'failed'" style="color: red;">bug_report</i>
+          <section class="md-list-item-test">
+            <section>{{ spec.description }}</section>
+            <section ng-if="spec.status==='failed'" style="color: saddlebrown;">
+              <section ng-repeat="expectation in spec.failedExpectations">
+                <md-divider ng-if="!$first"></md-divider>
+                <pre>{{ expectation.message }}</pre>
+                <p><span class="msg_small" ng-repeat="stackMsg in func.splitMessage(expectation.stack) track by $index">{{stackMsg}}<br>
+                </span></p>
+              </section>
+            </section>
+          </section>
+        </md-list-item>
+      </section>
+    </article>
+  </section>
+</article>

@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head>
+  <base href="/">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="app.css" />
+  <script src="jspm_packages/system.src.js"></script>
+  <script src="config.js"></script>
+</head>
+<body>
+  <div ng-app="kac.front.report">
+    <ui-view></ui-view>
+  </div>
+  <script>
+      System.import('app')
+      .catch(function(error) {
+          console.log(error.toString());
+          throw error;
+      });
+  </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<article>
+  <h3>画面キャプチャー</h3>
+</article>
+<md-divider></md-divider>
+<h3>キャプチャーズ</h3>
+<article ng-repeat="(suiteName ,photos) in capture.suites">
+  <md-divider></md-divider>
+  <section>
+    <article>
+      <md-toolbar class="md-toolbar-tools">
+        <h2>
+          <span>{{ suiteName }}</span>
+        </h2>
+      </md-toolbar>
+      <md-list ng-repeat="photo in photos">
+        <h4>{{ photo.name }}</h4>
+        <span>{{ photo.description }}</span>
+        <img ng-src="{{photo.path}}" alt="Description" />
+      </md-list>
+    </article>
+  </section>
+</article>

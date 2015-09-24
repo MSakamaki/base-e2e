@@ -1,0 +1,13 @@
+
+node_modules
+public/jspm_packages
+npm-debug.log
+
+.tmp/*
+.idea
+report/*
+*.swp
+
+.DS_Store
+doc/protractor
+doc/components
